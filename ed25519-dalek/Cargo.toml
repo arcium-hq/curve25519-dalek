@@ -17,6 +17,7 @@ categories = ["cryptography", "no-std"]
 description = "Fast and efficient ed25519 EdDSA key generations, signing, and verification in pure Rust."
 exclude = [ ".gitignore", "TESTVECTORS", "VALIDATIONVECTORS", "res/*" ]
 rust-version = "1.60"
+publish = false
 
 [package.metadata.docs.rs]
 rustdoc-args = [

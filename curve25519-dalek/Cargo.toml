@@ -21,6 +21,7 @@ exclude = [
     "**/.gitignore",
     ".gitignore",
 ]
+publish = ["arcium"]
 
 [package.metadata.docs.rs]
 rustdoc-args = [

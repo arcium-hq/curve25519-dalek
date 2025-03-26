@@ -2,6 +2,7 @@
 name = "curve25519-dalek-derive"
 version = "0.1.1"
 edition = "2021"
+publish = ["arcium"]
 
 repository = "https://github.com/dalek-cryptography/curve25519-dalek"
 homepage = "https://github.com/dalek-cryptography/curve25519-dalek"

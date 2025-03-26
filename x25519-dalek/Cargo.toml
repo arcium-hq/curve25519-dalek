@@ -26,6 +26,7 @@ exclude = [
     "CONTRIBUTING.md",
 ]
 rust-version = "1.60"
+publish = false
 
 [badges]
 travis-ci = { repository = "dalek-cryptography/x25519-dalek", branch = "master"}
