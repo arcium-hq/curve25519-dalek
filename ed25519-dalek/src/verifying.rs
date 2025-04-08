@@ -231,6 +231,7 @@ impl VerifyingKey {
         CtxDigest: Digest<OutputSize = U64>,
     {
         let k = Self::compute_challenge::<CtxDigest>(context, &signature.R, &self.compressed, M);
+        println!("k: {:?}", k);
         let minus_A: EdwardsPoint = -self.point;
         // Recall the (non-batched) verification equation: -[k]A + [s]B = R
         EdwardsPoint::vartime_double_scalar_mul_basepoint(&k, &(minus_A), &signature.s).compress()
