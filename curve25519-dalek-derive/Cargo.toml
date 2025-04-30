@@ -1,15 +1,13 @@
 [package]
-name = "curve25519-dalek-derive"
+name = "curve25519-dalek-derive-arcium-fork"
+description = "curve25519-dalek Derives (Arcium fork)"
 version = "0.1.1"
 edition = "2021"
-publish = ["arcium"]
-
-repository = "https://github.com/dalek-cryptography/curve25519-dalek"
-homepage = "https://github.com/dalek-cryptography/curve25519-dalek"
-documentation = "https://docs.rs/curve25519-dalek-derive"
 license = "MIT OR Apache-2.0"
+repository = "https://github.com/arcium-hq/curve25519-dalek"
+homepage = "https://www.arcium.com"
+documentation = "https://docs.rs/curve25519-dalek-derive"
 readme = "README.md"
-description = "curve25519-dalek Derives"
 
 [lib]
 proc-macro = true
