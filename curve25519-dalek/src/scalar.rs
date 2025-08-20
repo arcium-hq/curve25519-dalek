@@ -1320,19 +1320,19 @@ impl arcium_ff::Field for Scalar {
     const ZERO: Self = Self::ZERO;
     const ONE: Self = Self::ONE;
 
-    // fn try_from_rng<R: TryRngCore + ?Sized>(rng: &mut R) -> Result<Self, R::Error> {
-    //     // NOTE: this is duplicated due to different `rng` bounds
-    //     let mut scalar_bytes = [0u8; 64];
-    //     rng.try_fill_bytes(&mut scalar_bytes)?;
-    //     Ok(Self::from_bytes_mod_order_wide(&scalar_bytes))
-    // }
-
-    fn random(mut rng: impl RngCore) -> Self {
+    fn try_from_rng<R: TryRngCore + ?Sized>(rng: &mut R) -> Result<Self, R::Error> {
         // NOTE: this is duplicated due to different `rng` bounds
         let mut scalar_bytes = [0u8; 64];
-        rng.fill_bytes(&mut scalar_bytes);
-        Self::from_bytes_mod_order_wide(&scalar_bytes)
+        rng.try_fill_bytes(&mut scalar_bytes)?;
+        Ok(Self::from_bytes_mod_order_wide(&scalar_bytes))
     }
+
+    // fn random(mut rng: impl RngCore) -> Self {
+    //     // NOTE: this is duplicated due to different `rng` bounds
+    //     let mut scalar_bytes = [0u8; 64];
+    //     rng.fill_bytes(&mut scalar_bytes);
+    //     Self::from_bytes_mod_order_wide(&scalar_bytes)
+    // }
 
     fn square(&self) -> Self {
         self * self
