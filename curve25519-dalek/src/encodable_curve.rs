@@ -12,8 +12,6 @@ use elliptic_curve::consts::U32;
 use elliptic_curve::group;
 #[cfg(feature = "group")]
 use elliptic_curve::ops::Invert;
-#[cfg(feature = "group")]
-use elliptic_curve::ops::MulByGenerator;
 use elliptic_curve::scalar::FromUintUnchecked;
 #[cfg(feature = "group")]
 use elliptic_curve::scalar::IsHigh;
@@ -46,22 +44,6 @@ impl Curve for Dalek {
     type FieldBytesSize = U32;
     type Uint = U256;
     const ORDER: Self::Uint = U256::from_le_slice(BASEPOINT_ORDER_PRIVATE.as_bytes());
-}
-
-// Impls for EdwardsPoint
-#[cfg(feature = "group")]
-impl MulByGenerator for EdwardsPoint {
-    fn mul_by_generator(scalar: &Self::Scalar) -> Self {
-        <Self as group::Group>::generator() * scalar
-    }
-}
-
-// Impls for EdwardsPoint
-#[cfg(feature = "group")]
-impl MulByGenerator for RistrettoPoint {
-    fn mul_by_generator(scalar: &Self::Scalar) -> Self {
-        <Self as group::Group>::generator() * scalar
-    }
 }
 
 // Impls for Scalar
