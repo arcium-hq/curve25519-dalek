@@ -1327,13 +1327,6 @@ impl arcium_ff::Field for Scalar {
         Ok(Self::from_bytes_mod_order_wide(&scalar_bytes))
     }
 
-    // fn random(mut rng: impl RngCore) -> Self {
-    //     // NOTE: this is duplicated due to different `rng` bounds
-    //     let mut scalar_bytes = [0u8; 64];
-    //     rng.fill_bytes(&mut scalar_bytes);
-    //     Self::from_bytes_mod_order_wide(&scalar_bytes)
-    // }
-
     fn square(&self) -> Self {
         self * self
     }
