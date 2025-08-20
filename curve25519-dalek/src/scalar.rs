@@ -1313,55 +1313,55 @@ impl Field for Scalar {
     }
 }
 
-#[cfg(feature = "group")]
-impl arcium_ff::Field for Scalar {
-    const ZERO: Self = Self::ZERO;
-    const ONE: Self = Self::ONE;
+// #[cfg(feature = "group")]
+// impl arcium_ff::Field for Scalar {
+//     const ZERO: Self = Self::ZERO;
+//     const ONE: Self = Self::ONE;
 
-    fn try_from_rng<R: TryRngCore + ?Sized>(rng: &mut R) -> Result<Self, R::Error> {
-        // NOTE: this is duplicated due to different `rng` bounds
-        let mut scalar_bytes = [0u8; 64];
-        rng.try_fill_bytes(&mut scalar_bytes)?;
-        Ok(Self::from_bytes_mod_order_wide(&scalar_bytes))
-    }
+//     fn try_from_rng<R: TryRngCore + ?Sized>(rng: &mut R) -> Result<Self, R::Error> {
+//         // NOTE: this is duplicated due to different `rng` bounds
+//         let mut scalar_bytes = [0u8; 64];
+//         rng.try_fill_bytes(&mut scalar_bytes)?;
+//         Ok(Self::from_bytes_mod_order_wide(&scalar_bytes))
+//     }
 
-    // fn random(mut rng: impl RngCore) -> Self {
-    //     // NOTE: this is duplicated due to different `rng` bounds
-    //     let mut scalar_bytes = [0u8; 64];
-    //     rng.fill_bytes(&mut scalar_bytes);
-    //     Self::from_bytes_mod_order_wide(&scalar_bytes)
-    // }
+//     // fn random(mut rng: impl RngCore) -> Self {
+//     //     // NOTE: this is duplicated due to different `rng` bounds
+//     //     let mut scalar_bytes = [0u8; 64];
+//     //     rng.fill_bytes(&mut scalar_bytes);
+//     //     Self::from_bytes_mod_order_wide(&scalar_bytes)
+//     // }
 
-    fn square(&self) -> Self {
-        self * self
-    }
+//     fn square(&self) -> Self {
+//         self * self
+//     }
 
-    fn double(&self) -> Self {
-        self + self
-    }
+//     fn double(&self) -> Self {
+//         self + self
+//     }
 
-    fn invert(&self) -> CtOption<Self> {
-        CtOption::new(self.invert(), !self.is_zero())
-    }
+//     fn invert(&self) -> CtOption<Self> {
+//         CtOption::new(self.invert(), !self.is_zero())
+//     }
 
-    fn sqrt_ratio(num: &Self, div: &Self) -> (Choice, Self) {
-        #[allow(unused_qualifications)]
-        group::ff::helpers::sqrt_ratio_generic(num, div)
-    }
+//     fn sqrt_ratio(num: &Self, div: &Self) -> (Choice, Self) {
+//         #[allow(unused_qualifications)]
+//         group::ff::helpers::sqrt_ratio_generic(num, div)
+//     }
 
-    fn sqrt(&self) -> CtOption<Self> {
-        #[allow(unused_qualifications)]
-        group::ff::helpers::sqrt_tonelli_shanks(
-            self,
-            [
-                0xcb02_4c63_4b9e_ba7d,
-                0x029b_df3b_d45e_f39a,
-                0x0000_0000_0000_0000,
-                0x0200_0000_0000_0000,
-            ],
-        )
-    }
-}
+//     fn sqrt(&self) -> CtOption<Self> {
+//         #[allow(unused_qualifications)]
+//         group::ff::helpers::sqrt_tonelli_shanks(
+//             self,
+//             [
+//                 0xcb02_4c63_4b9e_ba7d,
+//                 0x029b_df3b_d45e_f39a,
+//                 0x0000_0000_0000_0000,
+//                 0x0200_0000_0000_0000,
+//             ],
+//         )
+//     }
+// }
 
 #[cfg(feature = "group")]
 use elliptic_curve::consts::U32;
