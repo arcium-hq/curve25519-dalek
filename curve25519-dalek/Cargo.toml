@@ -15,17 +15,22 @@ homepage = "https://www.arcium.com"
 documentation = "https://docs.rs/curve25519-dalek"
 categories = ["cryptography", "no-std"]
 keywords = ["cryptography", "crypto", "ristretto", "curve25519", "ristretto255"]
-exclude = [
-    "**/.gitignore",
-    ".gitignore",
-]
+exclude = ["**/.gitignore", ".gitignore"]
 
 [package.metadata.docs.rs]
 rustdoc-args = [
-    "--html-in-header", "docs/assets/rustdoc-include-katex-header.html",
-    "--cfg", "docsrs",
+    "--html-in-header",
+    "docs/assets/rustdoc-include-katex-header.html",
+    "--cfg",
+    "docsrs",
 ]
-features = ["serde", "rand_core", "digest", "legacy_compatibility", "group-bits"]
+features = [
+    "serde",
+    "rand_core",
+    "digest",
+    "legacy_compatibility",
+    "group-bits",
+]
 
 [dev-dependencies]
 sha2 = { version = "0.10", default-features = false }
@@ -33,7 +38,9 @@ bincode = "1"
 criterion = { version = "0.5", features = ["html_reports"] }
 hex = "0.4.2"
 rand = "0.8"
-rand_core = { version = "0.6", default-features = false, features = ["getrandom"] }
+rand_core = { version = "0.6", default-features = false, features = [
+    "getrandom",
+] }
 
 [build-dependencies]
 rustc_version = "0.4.0"
@@ -50,10 +57,17 @@ ff = { version = "0.13", default-features = false, optional = true }
 group = { version = "0.13", default-features = false, optional = true }
 rand_core = { version = "0.6.4", default-features = false, optional = true }
 digest = { version = "0.10", default-features = false, optional = true }
-subtle = { version = "2.6.0", default-features = false, features = ["const-generics"]}
-serde = { version = "1.0", default-features = false, optional = true, features = ["derive"] }
+subtle = { version = "2.6.0", default-features = false, features = [
+    "const-generics",
+] }
+serde = { version = "1.0", default-features = false, optional = true, features = [
+    "derive",
+] }
 zeroize = { version = "1", default-features = false, optional = true }
-elliptic-curve = { version = "0.14.0-rc.1", features = ["serde", "arithmetic"] }
+elliptic-curve = { version = "=0.14.0-rc.1", features = [
+    "serde",
+    "arithmetic",
+] }
 
 [target.'cfg(target_arch = "x86_64")'.dependencies]
 cpufeatures = "0.2.6"
