@@ -145,6 +145,7 @@ use core::ops::Neg;
 use core::ops::{Add, AddAssign};
 use core::ops::{Mul, MulAssign};
 use core::ops::{Sub, SubAssign};
+use core::ops::DerefMut;
 
 use cfg_if::cfg_if;
 
@@ -1327,7 +1328,7 @@ impl arcium_ff::Field for Scalar {
     //     Ok(Self::from_bytes_mod_order_wide(&scalar_bytes))
     // }
 
-    fn random(mut rng: impl RngCore) -> Self {
+    fn random(mut rng: impl RngCore + DerefMut) -> Self {
         // NOTE: this is duplicated due to different `rng` bounds
         let mut scalar_bytes = [0u8; 64];
         rng.fill_bytes(&mut scalar_bytes);
