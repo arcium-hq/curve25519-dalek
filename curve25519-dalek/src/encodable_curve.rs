@@ -29,7 +29,7 @@ use subtle::ConstantTimeGreater;
 use subtle::CtOption;
 use subtle::{Choice, ConstantTimeEq};
 
-use crate::constants::BASEPOINT_ORDER_PRIVATE;
+use crate::constants::BASEPOINT_ORDER;
 #[cfg(feature = "group")]
 use crate::EdwardsPoint;
 #[cfg(feature = "group")]
@@ -44,7 +44,7 @@ pub struct Dalek {}
 impl Curve for Dalek {
     type FieldBytesSize = U32;
     type Uint = U256;
-    const ORDER: Self::Uint = U256::from_le_slice(BASEPOINT_ORDER_PRIVATE.as_bytes());
+    const ORDER: Self::Uint = U256::from_le_slice(BASEPOINT_ORDER.as_bytes());
 }
 
 // Impls for Scalar
