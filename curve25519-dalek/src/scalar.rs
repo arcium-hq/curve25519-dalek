@@ -1344,7 +1344,7 @@ impl arcium_ff::Field for Scalar {
     }
 
     fn invert(&self) -> CtOption<Self> {
-        CtOption::new(self.invert(), !elliptic_curve::Field::is_zero(&self))
+        CtOption::new(self.invert(), !elliptic_curve::Field::is_zero(self))
     }
 
     fn sqrt_ratio(num: &Self, div: &Self) -> (Choice, Self) {
