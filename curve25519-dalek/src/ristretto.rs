@@ -1162,11 +1162,11 @@ impl Debug for CompressedRistretto {
 
 impl Debug for RistrettoPoint {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
-        let coset = self.coset4();
+        let coset = self.coset4()[0].as_projective();
         write!(
             f,
-            "RistrettoPoint: coset \n{:?}\n{:?}\n{:?}\n{:?}",
-            coset[0], coset[1], coset[2], coset[3]
+            "RistrettoPoint: coordinates \n{:?}\n{:?}\n{:?}",
+            coset.X.as_bytes(), coset.Y.as_bytes(), coset.Z.as_bytes()
         )
     }
 }
