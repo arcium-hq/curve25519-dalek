@@ -32,7 +32,7 @@ pub(crate) const MINUS_ONE: FieldElement51 = FieldElement51::from_limbs([
 ]);
 
 /// Edwards `d` value, equal to `-121665/121666 mod p`.
-pub(crate) const EDWARDS_D: FieldElement51 = FieldElement51::from_limbs([
+pub const EDWARDS_D: FieldElement51 = FieldElement51::from_limbs([
     929955233495203,
     466365720129213,
     1662059464998953,
