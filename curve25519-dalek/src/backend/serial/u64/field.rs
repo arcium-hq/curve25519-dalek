@@ -258,8 +258,15 @@ impl ConditionallySelectable for FieldElement51 {
 }
 
 impl FieldElement51 {
-    pub(crate) const fn from_limbs(limbs: [u64; 5]) -> FieldElement51 {
+    pub const fn from_limbs(limbs: [u64; 5]) -> FieldElement51 {
         FieldElement51(limbs)
+    }
+
+    /// The five radix-2^51 limbs of this element. Limbs are *not* guaranteed to be
+    /// fully reduced (`< 2^51`); use [`FieldElement51::reduce`] / `as_bytes` for a
+    /// canonical form. Exposed for arcium's external field arithmetic (wide MAC).
+    pub fn as_limbs(&self) -> &[u64; 5] {
+        &self.0
     }
 
     /// The scalar \\( 0 \\).
@@ -290,7 +297,7 @@ impl FieldElement51 {
 
     /// Given 64-bit input limbs, reduce to enforce the bound 2^(51 + epsilon).
     #[inline(always)]
-    fn reduce(mut limbs: [u64; 5]) -> FieldElement51 {
+    pub fn reduce(mut limbs: [u64; 5]) -> FieldElement51 {
         const LOW_51_BIT_MASK: u64 = (1u64 << 51) - 1;
 
         // Since the input limbs are bounded by 2^64, the biggest
