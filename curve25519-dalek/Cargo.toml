@@ -72,11 +72,13 @@ elliptic-curve = { version = "=0.14.0-rc.1", features = [
     "arithmetic",
 ] }
 block-buffer = "=0.11.0-rc.3"
-crypto-common = "=0.2.0-rc.1"
+crypto-common = "0.2.2"
 sec1 = "=0.8.0-rc.3"
 der = "=0.8.0-rc.1"
 pkcs8 = "=0.11.0-rc.1"
-wincode = { package = "wincode-arcium-fork", version = "0.2.5-patch.2", features = ["derive"] }
+wincode = { package = "wincode-arcium-fork", version = "0.2.5-patch.2", features = [
+    "derive",
+] }
 
 [target.'cfg(target_arch = "x86_64")'.dependencies]
 cpufeatures = "0.2.6"
