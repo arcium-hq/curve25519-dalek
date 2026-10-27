@@ -82,8 +82,9 @@ pub mod traits;
 // curve25519-dalek internal modules
 //------------------------------------------------------------------------
 
-// Finite field arithmetic mod p = 2^255 - 19
-pub(crate) mod field;
+// Finite field arithmetic mod p = 2^255 - 19. Public in this fork so callers can read and
+// construct raw point coordinates.
+pub mod field;
 
 // Arithmetic backends (using u32, u64, etc) live here
 #[cfg(docsrs)]

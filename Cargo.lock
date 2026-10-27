@@ -305,7 +305,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "curve25519-dalek"
+name = "curve25519-dalek-arcium-fork"
 version = "5.0.0"
 dependencies = [
  "cfg-if",
@@ -378,7 +378,7 @@ dependencies = [
  "blake2",
  "chacha20",
  "criterion",
- "curve25519-dalek",
+ "curve25519-dalek-arcium-fork",
  "ed25519",
  "getrandom 0.4.0",
  "hex",
@@ -1494,7 +1494,7 @@ name = "x25519-dalek"
 version = "3.0.0"
 dependencies = [
  "criterion",
- "curve25519-dalek",
+ "curve25519-dalek-arcium-fork",
  "getrandom 0.4.0",
  "postcard",
  "rand_core 0.10.0",

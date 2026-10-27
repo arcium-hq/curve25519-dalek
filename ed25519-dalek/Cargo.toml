@@ -28,7 +28,7 @@ rustdoc-args = [
 all-features = true
 
 [dependencies]
-curve25519-dalek = { version = "5.0.0", default-features = false, features = [
+curve25519-dalek = { package = "curve25519-dalek-arcium-fork", version = "5.0.0", path = "../curve25519-dalek", default-features = false, features = [
     "digest",
 ] }
 ed25519 = { version = "3", default-features = false }
@@ -44,7 +44,7 @@ zeroize = { version = "1.5", default-features = false, optional = true }
 strobe-rs = { version = "0.13", optional = true }
 
 [dev-dependencies]
-curve25519-dalek = { version = "5.0.0", default-features = false, features = [
+curve25519-dalek = { package = "curve25519-dalek-arcium-fork", version = "5.0.0", path = "../curve25519-dalek", default-features = false, features = [
     "digest",
     "rand_core",
 ] }

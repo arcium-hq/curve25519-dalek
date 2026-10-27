@@ -1,5 +1,5 @@
 [package]
-name = "curve25519-dalek"
+name = "curve25519-dalek-arcium-fork"
 # Before incrementing:
 # - update CHANGELOG
 # - update README if required by semver
