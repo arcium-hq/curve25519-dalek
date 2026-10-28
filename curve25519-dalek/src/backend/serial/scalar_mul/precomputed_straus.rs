@@ -46,6 +46,14 @@ impl VartimePrecomputedMultiscalarMul for VartimePrecomputedStraus {
         }
     }
 
+    fn len(&self) -> usize {
+        self.static_lookup_tables.len()
+    }
+
+    fn is_empty(&self) -> bool {
+        self.static_lookup_tables.is_empty()
+    }
+
     fn optional_mixed_multiscalar_mul<I, J, K>(
         &self,
         static_scalars: I,
@@ -61,7 +69,7 @@ impl VartimePrecomputedMultiscalarMul for VartimePrecomputedStraus {
     {
         let static_nafs = static_scalars
             .into_iter()
-            .map(|c| c.borrow().non_adjacent_form(5))
+            .map(|c| c.borrow().non_adjacent_form(8))
             .collect::<Vec<_>>();
         let dynamic_nafs: Vec<_> = dynamic_scalars
             .into_iter()
