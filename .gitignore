@@ -7,6 +7,5 @@ build*.txt
 *.swp
 *.orig
 *.bak
-.idea/*
 
 *.s

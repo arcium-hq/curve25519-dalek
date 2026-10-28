@@ -23,8 +23,6 @@ use core::ops::{Sub, SubAssign};
 use subtle::Choice;
 use subtle::ConditionallySelectable;
 
-use wincode::{SchemaRead, SchemaWrite};
-
 #[cfg(feature = "zeroize")]
 use zeroize::Zeroize;
 
@@ -45,8 +43,7 @@ use fiat_crypto::curve25519_64::*;
 ///
 /// The backend-specific type `FieldElement51` should not be used
 /// outside of the `curve25519_dalek::field` module.
-#[derive(Copy, Clone, SchemaRead, SchemaWrite)]
-#[repr(transparent)]
+#[derive(Copy, Clone)]
 pub struct FieldElement51(pub(crate) fiat_25519_tight_field_element);
 
 impl Debug for FieldElement51 {

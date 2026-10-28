@@ -78,9 +78,6 @@ pub mod constants;
 // External (and internal) traits.
 pub mod traits;
 
-// Implementations for the Dalek structure
-pub mod encodable_curve;
-
 //------------------------------------------------------------------------
 // curve25519-dalek internal modules
 //------------------------------------------------------------------------
