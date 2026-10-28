@@ -385,8 +385,9 @@ impl<'de> Deserialize<'de> for CompressedEdwardsY {
 // ------------------------------------------------------------------------
 
 /// An `EdwardsPoint` represents a point on the Edwards form of Curve25519.
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, SchemaRead, SchemaWrite)]
 #[allow(missing_docs)]
+#[repr(C)]
 pub struct EdwardsPoint {
     pub(crate) X: FieldElement,
     pub(crate) Y: FieldElement,
@@ -1894,7 +1895,7 @@ mod test {
         let base_X = FieldElement::from_bytes(&BASE_X_COORD_BYTES);
         let bp = constants::ED25519_BASEPOINT_COMPRESSED
             .decompress()
-            .unwrap();
+            .expect("basepoint should decompress successfully");
         assert!(bp.is_valid());
         // Check that decompression actually gives the correct X coordinate
         assert_eq!(base_X, bp.X);
@@ -1909,7 +1910,7 @@ mod test {
         minus_basepoint_bytes[31] |= 1 << 7;
         let minus_basepoint = CompressedEdwardsY(minus_basepoint_bytes)
             .decompress()
-            .unwrap();
+            .expect("negated basepoint should decompress successfully");
         // Test projective coordinates exactly since we know they should
         // only differ by a flipped sign.
         assert_eq!(minus_basepoint.X, -(&constants::ED25519_BASEPOINT_POINT.X));
@@ -2449,7 +2450,9 @@ mod test {
         /// Test double_scalar_mul_vartime vs ed25519.py
         #[test]
         fn double_scalar_mul_basepoint_vs_ed25519py() {
-            let A = A_TIMES_BASEPOINT.decompress().unwrap();
+            let A = A_TIMES_BASEPOINT
+                .decompress()
+                .expect("test vector should decompress");
             let result =
                 EdwardsPoint::vartime_double_scalar_mul_basepoint(&A_SCALAR, &A, &B_SCALAR);
             assert_eq!(result.compress(), DOUBLE_SCALAR_MULT_RESULT);
@@ -2458,7 +2461,9 @@ mod test {
         #[test]
         #[cfg(feature = "alloc")]
         fn multiscalar_mul_vs_ed25519py() {
-            let A = A_TIMES_BASEPOINT.decompress().unwrap();
+            let A = A_TIMES_BASEPOINT
+                .decompress()
+                .expect("test vector should decompress");
             let result = EdwardsPoint::vartime_multiscalar_mul(
                 &[A_SCALAR, B_SCALAR],
                 &[A, constants::ED25519_BASEPOINT_POINT],
@@ -2469,7 +2474,9 @@ mod test {
         #[test]
         #[cfg(feature = "alloc")]
         fn multiscalar_mul_vartime_vs_consttime() {
-            let A = A_TIMES_BASEPOINT.decompress().unwrap();
+            let A = A_TIMES_BASEPOINT
+                .decompress()
+                .expect("test vector should decompress");
             let result_vartime = EdwardsPoint::vartime_multiscalar_mul(
                 &[A_SCALAR, B_SCALAR],
                 &[A, constants::ED25519_BASEPOINT_POINT],

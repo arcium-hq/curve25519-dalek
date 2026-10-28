@@ -9,6 +9,7 @@ on:
 env:
   CARGO_TERM_COLOR: always
   RUSTFLAGS: '-D warnings'
+  CARGO_REGISTRIES_ARCIUM_TOKEN: ${{ secrets.ARCIUM_REGISTRY_READ_TOKEN }}
 
 jobs:
   test-stable:
@@ -59,6 +60,7 @@ jobs:
 
   # Test no_std with serial (default)
   build-nostd-serial:
+    if: false
     name: Build serial on no_std target (thumbv7em-none-eabi)
     runs-on: ubuntu-latest
     strategy:

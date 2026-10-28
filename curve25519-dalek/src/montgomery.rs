@@ -558,12 +558,16 @@ mod test {
         // sign bit = 0 => basepoint
         assert_eq!(
             constants::ED25519_BASEPOINT_POINT,
-            constants::X25519_BASEPOINT.to_edwards(0).unwrap()
+            constants::X25519_BASEPOINT
+                .to_edwards(0)
+                .expect("X25519 basepoint should convert to Edwards with sign=0")
         );
         // sign bit = 1 => minus basepoint
         assert_eq!(
             -constants::ED25519_BASEPOINT_POINT,
-            constants::X25519_BASEPOINT.to_edwards(1).unwrap()
+            constants::X25519_BASEPOINT
+                .to_edwards(1)
+                .expect("X25519 basepoint should convert to Edwards with sign=1")
         );
     }
 
@@ -629,7 +633,7 @@ mod test {
         let mut csprng = UnwrapErr(SysRng);
 
         for _ in 0..100 {
-            let p_edwards = rand_prime_order_point(&mut csprng);
+            let p_edwards = rand_prime_order_point(csprng);
             let p_montgomery: MontgomeryPoint = p_edwards.to_montgomery();
 
             let s: Scalar = Scalar::random(&mut csprng);
@@ -649,7 +653,7 @@ mod test {
 
         for _ in 0..100 {
             // Make a random prime-order point P
-            let p_edwards = rand_prime_order_point(&mut csprng);
+            let p_edwards = rand_prime_order_point(csprng);
             let p_montgomery: MontgomeryPoint = p_edwards.to_montgomery();
 
             // Make a random integer b
