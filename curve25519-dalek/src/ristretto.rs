@@ -164,7 +164,6 @@ use alloc::vec::Vec;
 use core::array::TryFromSliceError;
 use core::borrow::Borrow;
 use core::fmt::Debug;
-use core::hash::{Hash, Hasher};
 use core::iter::Sum;
 use core::ops::{Add, Neg, Sub};
 use core::ops::{AddAssign, SubAssign};
@@ -195,8 +194,6 @@ use subtle::Choice;
 use subtle::ConditionallyNegatable;
 use subtle::ConditionallySelectable;
 use subtle::ConstantTimeEq;
-
-use wincode::{SchemaRead, SchemaWrite};
 
 #[cfg(feature = "zeroize")]
 use zeroize::Zeroize;
@@ -495,8 +492,7 @@ impl<'de> Deserialize<'de> for CompressedRistretto {
 /// operations on `RistrettoPoint`s are exactly as fast as operations on
 /// `EdwardsPoint`s.
 ///
-#[derive(Copy, Clone, SchemaRead, SchemaWrite)]
-#[repr(transparent)]
+#[derive(Copy, Clone)]
 pub struct RistrettoPoint(pub(crate) EdwardsPoint);
 
 impl RistrettoPoint {
@@ -844,16 +840,6 @@ impl ConstantTimeEq for RistrettoPoint {
 }
 
 impl Eq for RistrettoPoint {}
-
-// ------------------------------------------------------------------------
-// Hash
-// ------------------------------------------------------------------------
-
-impl Hash for RistrettoPoint {
-    fn hash<H: Hasher>(&self, state: &mut H) {
-        self.compress().hash(state);
-    }
-}
 
 // ------------------------------------------------------------------------
 // Arithmetic
@@ -1381,9 +1367,7 @@ mod test {
     #[test]
     fn decompress_id() {
         let compressed_id = CompressedRistretto::identity();
-        let id = compressed_id
-            .decompress()
-            .expect("identity should decompress successfully");
+        let id = compressed_id.decompress().unwrap();
         let mut identity_in_coset = false;
         for P in &id.coset4() {
             if P.compress() == CompressedEdwardsY::identity() {
@@ -1402,10 +1386,7 @@ mod test {
     #[test]
     fn basepoint_roundtrip() {
         let bp_compressed_ristretto = constants::RISTRETTO_BASEPOINT_POINT.compress();
-        let bp_recaf = bp_compressed_ristretto
-            .decompress()
-            .expect("basepoint should decompress successfully")
-            .0;
+        let bp_recaf = bp_compressed_ristretto.decompress().unwrap().0;
         // Check that bp_recaf differs from bp by a point of order 4
         let diff = constants::RISTRETTO_BASEPOINT_POINT.0 - bp_recaf;
         let diff4 = diff.mul_by_pow_2(2);
@@ -1516,9 +1497,7 @@ mod test {
         for _ in 0..100 {
             let P = RistrettoPoint::mul_base(&Scalar::random(&mut rng));
             let compressed_P = P.compress();
-            let Q = compressed_P
-                .decompress()
-                .expect("random point should decompress successfully");
+            let Q = compressed_P.decompress().unwrap();
             assert_eq!(P, Q);
         }
     }
